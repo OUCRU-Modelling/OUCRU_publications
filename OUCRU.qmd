@@ -7,7 +7,7 @@ editor_options:
 ---
 
 ```{r setup, include = FALSE}
-knitr::opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
 ```
 
 Packages needed:
@@ -21,13 +21,14 @@ library(rcrossref)
 Reading the year 2022 from OUCRU excel file as an example:
 
 ```{r}
-pubs22 <- read_excel("~/Desktop/2022 OUCRU Publications (Mar20).xlsx")
+pubs22 <- read_excel("2022 OUCRU Publications (Mar20).xlsx")
 ```
 
-`pubs22` contains the data from the first sheet of the excel file:
+`pubs22` contains the data from the first sheet of the excel file (here showing
+only the first 16 columns of the first 10 publications as an example):
 
 ```{r}
-print(pubs22, width = 300)
+pubs22
 ```
 
 From `pubs22` we want to extract the DOIs:
@@ -45,7 +46,7 @@ head(dois)
 Then you can use this list of DOIs to query the complete information of each
 publication through [Crossref](https://www.crossref.org) online:
 
-```{r eval = TRUE}
+```{r eval = FALSE}
 p22 <- cr_works(dois)
 ```
 
@@ -60,11 +61,11 @@ publication. Here a full list of the variables (no less than 36!):
 names(p22$data)
 ```
 
-This is basically what it looks like (again, showing here only the first few
-publications):
+This is basically what it looks like (again, showing here only the first 8
+fields of the first 10 publications):
 
 ```{r}
-print(p22$data, width = 300)
+p22$data
 ```
 
 Some of these variables are very interesting, such as `is.referenced.by.count`
@@ -99,4 +100,3 @@ more information than what is in the excel file that you sent me, in a tiny
 fraction of the time that it took to build this excel file in the first place!
 That's why I'm basically recommending OUCRU to forget about this excel file and
 just make sure they have the DOI which is the only thing that really matters.
-
